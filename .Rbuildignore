@@ -1,0 +1,6 @@
+^\.travis\.yml$
+^appveyor\.yml$
+makefile$
+\.Rmd$
+^README\.Rmd$
+^README\.html$
