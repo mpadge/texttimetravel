@@ -1,0 +1,21 @@
+Package: texttimetravel
+Title: Tools for analysing temporally structured text collections
+Version: 0.0.0
+Authors@R: person("Mark", "Padgham", email = "mark.padgham@email.com", role = c("aut", "cre"))
+Description: Tools for analysing temporally structured text collections.
+Imports:
+    quanteda,
+    dplyr
+Suggests:
+    devtools,
+    knitr,
+    rmarkdown,
+    roxygen2,
+    testthat
+License: GPL-3
+URL: https://github.com/mpadge/texttimetravel
+BugReports: https://github.com/mpadge/rdeps/itexttimetravel/issues
+LazyData: true
+VignetteBuilder: knitr
+Encoding: UTF-8
+RoxygenNote: 6.1.1
