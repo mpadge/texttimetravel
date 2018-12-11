@@ -1,0 +1,31 @@
+language: R
+warnings_are_errors: true
+sudo: false
+cache: packages
+
+matrix:
+    include:
+        - r: release
+          env: DEPS=cran
+          dist: trusty # 14.04
+          env: R_CODECOV=true
+        - r: release
+          env: DEPS=cran
+          os: osx
+        - r: oldrel
+          env: DEPS=cran
+          dist: trusty # 14.04
+        - r: oldrel
+          env: DEPS=cran
+          os: osx
+          #- r: devel
+          #env: DEPS=cran
+          #os: linux
+          #- r: devel
+          #env: DEPS=cran
+          #os: osx
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
