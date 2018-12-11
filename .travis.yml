@@ -25,6 +25,9 @@ matrix:
           #env: DEPS=cran
           #os: osx
 
+before_install:
+    - apt-get install --yes libpoppler-cpp-dev
+
 notifications:
   email:
     on_success: change
