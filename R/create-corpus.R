@@ -1,9 +1,10 @@
 #' ttt_create_corpus
 #'
-#' Download annual Indian Affairs Reports for Canada
+#' Create a corpus by reading a directory of pre-downloaded `pdf` files.
 #'
 #' @inheritParams dl_canada
-#' @return A \pkg{quanteda} corpus representing all of the reports.
+#' @return A \pkg{quanteda} corpus representing the text contents of all `pdf`
+#' documents contained in `data_dir`.
 #' @export
 create_ttt_corpus <- function (data_dir = "./data")
 {

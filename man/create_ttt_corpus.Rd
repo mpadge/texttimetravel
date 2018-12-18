@@ -11,8 +11,9 @@ create_ttt_corpus(data_dir = "./data")
 does not exist).}
 }
 \value{
-A \pkg{quanteda} corpus representing all of the reports.
+A \pkg{quanteda} corpus representing the text contents of all `pdf`
+documents contained in `data_dir`.
 }
 \description{
-Download annual Indian Affairs Reports for Canada
+Create a corpus by reading a directory of pre-downloaded `pdf` files.
 }
