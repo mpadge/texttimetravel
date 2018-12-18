@@ -3,5 +3,6 @@
 export("%>%")
 export(create_ttt_corpus)
 export(dl_canada)
+export(ttt_keyness)
 importFrom(magrittr,"%>%")
 importFrom(quanteda,dfm)
