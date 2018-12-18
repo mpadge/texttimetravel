@@ -6,11 +6,13 @@ Authors@R: c(
     person("Felicity", "Jensz", role = "aut"))
 Description: Tools for analysing temporally structured text collections.
 Imports:
+    dplyr,
     httr,
     magrittr,
+    methods,
     pdftools,
     quanteda,
-    dplyr
+    topicmodels
 Suggests:
     knitr,
     roxygen2

@@ -14,9 +14,9 @@
 #' @export
 ttt_keyness <- function (x, word = "school", window = 10)
 {
-    if (!is (x, "tokens"))
+    if (!methods::is (x, "tokens"))
     {
-        if (is (x, "corpus"))
+        if (methods::is (x, "corpus"))
         {
             message ("argument is a corpus; translating to tokens")
             x <- quanteda::tokens (x)
@@ -25,9 +25,12 @@ ttt_keyness <- function (x, word = "school", window = 10)
                   "please submit a corpus or tokens object")
     }
 
-    word_dfm <- tokens_keep (x, phrase (word), window = window) %>%
-        dfm ()
-    not_word_dfm <- tokens_remove (tok, phrase (word), window = window) %>%
-        dfm ()
-    textstat_keyness (rbind (word_dfm, not_word_dfm), seq_len (ndoc (word_dfm)))
+    word_dfm <- quanteda::tokens_keep (x, quanteda::phrase (word), window = window) %>%
+        quanteda::dfm ()
+    not_word_dfm <- quanteda::tokens_remove (x, quanteda::phrase (word),
+                                             window = window) %>%
+        quanteda::dfm ()
+
+    quanteda::textstat_keyness (rbind (word_dfm, not_word_dfm),
+                                seq_len (quanteda::ndoc (word_dfm)))
 }
