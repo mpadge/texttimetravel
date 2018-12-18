@@ -26,7 +26,7 @@ matrix:
           #os: osx
 
 before_install:
-    - sudo apt install --yes libpoppler-cpp-dev
+    - sudo apt install --yes gsl-bin libpoppler-cpp-dev
 
 notifications:
   email:
