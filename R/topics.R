@@ -18,13 +18,22 @@
 #' @note This function may take a long time to execute; please be patient.
 #'
 #' @export
+#' @examples
+#' dat <- quanteda::data_corpus_inaugural
+#' x <- ttt_fit_topics (dat, ntopics = 5)
+#' topicmodels::get_terms(x, 20)
+#' x <- ttt_fit_topics (dat, years = 1789:1900, ntopics = 5)
 ttt_fit_topics <- function (dat, years = NULL, ntopics = 20, topic = NULL,
-                         filename = NULL)
+                            filename = NULL, quiet = FALSE)
 {
     # rm no visible binding notes
     year <- index <- NULL
     if (!is.null (years))
-        dat <- quanteda::corpus_subset (dat, year %in% years)
+    {
+        dv <- quanteda::docvars (dat)
+        yvar <- names (dv) [grep ("year", names (dv), ignore.case = TRUE)]
+        quanteda::corpus_subset (dat, dv [[yvar]] %in% years)
+    }
     if (!dat$settings$units == "sentences")
         dat <- quanteda::corpus_reshape (dat, to = "sentences")
     tok <- quanteda::tokens (dat, remove_numbers = TRUE, remove_punct = TRUE,

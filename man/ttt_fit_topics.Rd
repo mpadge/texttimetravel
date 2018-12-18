@@ -5,7 +5,7 @@
 \title{ttt_topics}
 \usage{
 ttt_fit_topics(dat, years = NULL, ntopics = 20, topic = NULL,
-  filename = NULL)
+  filename = NULL, quiet = FALSE)
 }
 \arguments{
 \item{dat}{A temporally-structued \pkg{quanteda} corpus with a `docar` of
@@ -32,4 +32,10 @@ to fit topics around a specified word or phrase.
 }
 \note{
 This function may take a long time to execute; please be patient.
+}
+\examples{
+dat <- quanteda::data_corpus_inaugural
+x <- ttt_fit_topics (dat, ntopics = 5)
+topicmodels::get_terms(x, 20)
+x <- ttt_fit_topics (dat, years = 1789:1900, ntopics = 5)
 }

@@ -12,6 +12,17 @@
 #' @return A \pkg{quanteda} `keyness` object listing words (`features`) and
 #' associated keyness statistics.
 #' @export
+#' @examples
+#' # prepare a corpus of quanteda tokens:
+#' dat <- quanteda::data_corpus_inaugural
+#' tok <- quanteda::tokens (dat, remove_numbers = TRUE, remove_punct = TRUE,
+#'                remove_separators = TRUE)
+#' tok <- quanteda::tokens_remove(tok, quanteda::stopwords("english"))
+#' # then use that to extract keyword associations:
+#' x <- ttt_keyness (tok, "school")
+#' head (x, n = 20)
+#' x <- ttt_keyness (tok, "politic*")
+#' head (x, n = 20)
 ttt_keyness <- function (x, word = "school", window = 10)
 {
     if (!methods::is (x, "tokens"))
