@@ -49,7 +49,13 @@ ttt_fit_topics <- function (dat, years = NULL, ntopics = 20, topic = NULL,
             quanteda::dfm ()
         indx <- which (as.numeric (dfm_topic) > 0)
         quanteda::docvars (dat, "index") <- seq (quanteda::ndoc (dat))
-        d <- quanteda::corpus_subset (dat, index %in% indx) %>% dfm ()
+        d <- quanteda::corpus_subset (dat, index %in% indx)
+        tok <- quanteda::tokens (d, remove_numbers = TRUE, remove_punct = TRUE,
+                                 remove_separators = TRUE)
+        d <- quanteda::dfm (tok,
+                            remove = c (letters, quanteda::stopwords ("english")),
+                            stem = TRUE,
+                            remove_punct = TRUE)
     }
 
     dtm <- quanteda::convert (d, to = "topicmodels")
