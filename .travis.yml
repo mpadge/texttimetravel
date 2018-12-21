@@ -33,7 +33,3 @@ notifications:
   email:
     on_success: change
     on_failure: change
-
-# Prevents Travis timeout for building libpoppler
-before_install:
-    - (while true; do echo 'Ping? Pong!'; sleep 500; done) &
