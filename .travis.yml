@@ -26,7 +26,8 @@ matrix:
           #os: osx
 
 before_install:
-    - sudo apt install --yes gsl-bin libpoppler-cpp-dev
+    - sudo apt install --yes libgsl0-dev libpoppler-cpp-dev
+      #- Rscript -e 'install.packages("topicmodels"))'
 
 notifications:
   email:
