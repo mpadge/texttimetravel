@@ -36,19 +36,19 @@ tok <- tokens_remove (tok, stopwords("english"))
 
 ```{r keywords}
 x <- ttt_keyness (tok, "school")
-head (x, n = 20)
+head (x, n = 20) %>% knitr::kable()
 x <- ttt_keyness (tok, "politic*")
-head (x, n = 20)
+head (x, n = 20) %>% knitr::kable()
 ```
 
 ## topics
 
 ```{r topics}
 x <- ttt_fit_topics (dat, ntopics = 5)
-topicmodels::get_terms(x, 20)
+topicmodels::get_terms(x, 20) %>% knitr::kable()
 x <- ttt_fit_topics (dat, years = 1789:1900, ntopics = 5)
-topicmodels::get_terms(x, 20)
+topicmodels::get_terms(x, 20) %>% knitr::kable()
 x <- ttt_fit_topics (dat, topic = "nation", ntopics = 5)
-topicmodels::get_terms(x, 20)
+topicmodels::get_terms(x, 20) %>% knitr::kable()
 ```
 

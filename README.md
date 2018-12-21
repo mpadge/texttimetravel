@@ -38,137 +38,142 @@ tok <- tokens_remove (tok, stopwords("english"))
 
 ``` r
 x <- ttt_keyness (tok, "school")
-head (x, n = 20)
+head (x, n = 20) %>% knitr::kable()
 ```
 
-    ##       feature       chi2            p n_target n_reference
-    ## 1      school 2130.81344 0.000000e+00        3           0
-    ## 2     laissez  255.28992 0.000000e+00        1           0
-    ## 3       faire  255.28992 0.000000e+00        1           0
-    ## 4     outward  255.28992 0.000000e+00        1           0
-    ## 5      attest  255.28992 0.000000e+00        1           0
-    ## 6     teacher  255.28992 0.000000e+00        1           0
-    ## 7        miss  255.28992 0.000000e+00        1           0
-    ## 8       julia  255.28992 0.000000e+00        1           0
-    ## 9     coleman  255.28992 0.000000e+00        1           0
-    ## 10    writers  127.14790 0.000000e+00        1           1
-    ## 11   widening  127.14790 0.000000e+00        1           1
-    ## 12      inner  127.14790 0.000000e+00        1           1
-    ## 13    widened   84.43453 0.000000e+00        1           2
-    ## 14   military   64.90490 7.771561e-16        2          32
-    ## 15   changing   63.07833 1.998401e-15        1           3
-    ## 16 scientific   50.26500 1.343259e-12        1           4
-    ## 17     adjust   41.72309 1.051595e-10        1           5
-    ## 18   approval   41.72309 1.051595e-10        1           5
-    ## 19       laid   31.04644 2.519285e-08        1           7
-    ## 20  spiritual   31.04644 2.519285e-08        1           7
+| feature    |       chi2 | p | n\_target | n\_reference |
+| :--------- | ---------: | -: | --------: | -----------: |
+| school     | 2130.81344 | 0 |         3 |            0 |
+| laissez    |  255.28992 | 0 |         1 |            0 |
+| faire      |  255.28992 | 0 |         1 |            0 |
+| outward    |  255.28992 | 0 |         1 |            0 |
+| attest     |  255.28992 | 0 |         1 |            0 |
+| teacher    |  255.28992 | 0 |         1 |            0 |
+| miss       |  255.28992 | 0 |         1 |            0 |
+| julia      |  255.28992 | 0 |         1 |            0 |
+| coleman    |  255.28992 | 0 |         1 |            0 |
+| writers    |  127.14790 | 0 |         1 |            1 |
+| widening   |  127.14790 | 0 |         1 |            1 |
+| inner      |  127.14790 | 0 |         1 |            1 |
+| widened    |   84.43453 | 0 |         1 |            2 |
+| military   |   64.90490 | 0 |         2 |           32 |
+| changing   |   63.07833 | 0 |         1 |            3 |
+| scientific |   50.26500 | 0 |         1 |            4 |
+| adjust     |   41.72309 | 0 |         1 |            5 |
+| approval   |   41.72309 | 0 |         1 |            5 |
+| laid       |   31.04644 | 0 |         1 |            7 |
+| spiritual  |   31.04644 | 0 |         1 |            7 |
 
 ``` r
 x <- ttt_keyness (tok, "politic*")
-head (x, n = 20)
+head (x, n = 20) %>% knitr::kable()
 ```
 
-    ##        feature       chi2                 p n_target n_reference
-    ## 1    political 2633.43470 0.000000000000000      106           0
-    ## 2     politics  275.14397 0.000000000000000       12           0
-    ## 3      parties   74.19817 0.000000000000000       13          30
-    ## 4        petty   37.28733 0.000000001019446        3           1
-    ## 5        voice   35.13833 0.000000003070959        7          17
-    ## 6       social   30.58931 0.000000031884568        8          26
-    ## 7        party   29.52579 0.000000055177584       13          68
-    ## 8    inspiring   28.86219 0.000000077715118        3           2
-    ## 9    prejudice   27.81476 0.000000133503763        5          10
-    ## 10   regaining   27.43489 0.000000162473518        2           0
-    ## 11 significant   27.43489 0.000000162473518        2           0
-    ## 12       imply   27.43489 0.000000162473518        2           0
-    ## 13      stakes   27.43489 0.000000162473518        2           0
-    ## 14 politicians   27.43489 0.000000162473518        2           0
-    ## 15  industrial   23.53479 0.000001226751184        7          25
-    ## 16     members   21.51050 0.000003518957835        7          27
-    ## 17     pledged   18.76852 0.000014758321081        4           9
-    ## 18    economic   18.07462 0.000021241358268        8          40
-    ## 19   religious   17.98225 0.000022297426535        6          23
-    ## 20   essential   17.39381 0.000030381302722        7          32
+| feature     |       chi2 |         p | n\_target | n\_reference |
+| :---------- | ---------: | --------: | --------: | -----------: |
+| political   | 2633.43470 | 0.0000000 |       106 |            0 |
+| politics    |  275.14397 | 0.0000000 |        12 |            0 |
+| parties     |   74.19817 | 0.0000000 |        13 |           30 |
+| petty       |   37.28733 | 0.0000000 |         3 |            1 |
+| voice       |   35.13833 | 0.0000000 |         7 |           17 |
+| social      |   30.58931 | 0.0000000 |         8 |           26 |
+| party       |   29.52579 | 0.0000001 |        13 |           68 |
+| inspiring   |   28.86219 | 0.0000001 |         3 |            2 |
+| prejudice   |   27.81476 | 0.0000001 |         5 |           10 |
+| regaining   |   27.43489 | 0.0000002 |         2 |            0 |
+| significant |   27.43489 | 0.0000002 |         2 |            0 |
+| imply       |   27.43489 | 0.0000002 |         2 |            0 |
+| stakes      |   27.43489 | 0.0000002 |         2 |            0 |
+| politicians |   27.43489 | 0.0000002 |         2 |            0 |
+| industrial  |   23.53479 | 0.0000012 |         7 |           25 |
+| members     |   21.51050 | 0.0000035 |         7 |           27 |
+| pledged     |   18.76852 | 0.0000148 |         4 |            9 |
+| economic    |   18.07462 | 0.0000212 |         8 |           40 |
+| religious   |   17.98225 | 0.0000223 |         6 |           23 |
+| essential   |   17.39381 | 0.0000304 |         7 |           32 |
 
 ## topics
 
 ``` r
 x <- ttt_fit_topics (dat, ntopics = 5)
-topicmodels::get_terms(x, 20)
+topicmodels::get_terms(x, 20) %>% knitr::kable()
 ```
 
-    ##       Topic 1     Topic 2     Topic 3    Topic 4    Topic 5    
-    ##  [1,] "nation"    "state"     "can"      "govern"   "countri"  
-    ##  [2,] "peopl"     "nation"    "govern"   "peopl"    "state"    
-    ##  [3,] "must"      "great"     "us"       "us"       "govern"   
-    ##  [4,] "may"       "can"       "new"      "power"    "time"     
-    ##  [5,] "great"     "make"      "must"     "peac"     "constitut"
-    ##  [6,] "law"       "upon"      "shall"    "countri"  "american" 
-    ##  [7,] "world"     "govern"    "may"      "world"    "power"    
-    ##  [8,] "govern"    "power"     "principl" "made"     "may"      
-    ##  [9,] "everi"     "citizen"   "world"    "law"      "year"     
-    ## [10,] "without"   "now"       "upon"     "nation"   "freedom"  
-    ## [11,] "us"        "must"      "freedom"  "american" "public"   
-    ## [12,] "shall"     "everi"     "everi"    "citizen"  "right"    
-    ## [13,] "men"       "give"      "duti"     "upon"     "best"     
-    ## [14,] "duti"      "secur"     "peopl"    "right"    "interest" 
-    ## [15,] "public"    "one"       "public"   "america"  "one"      
-    ## [16,] "right"     "countri"   "hope"     "everi"    "can"      
-    ## [17,] "upon"      "shall"     "citizen"  "new"      "forc"     
-    ## [18,] "constitut" "faith"     "live"     "now"      "foreign"  
-    ## [19,] "high"      "constitut" "peac"     "preserv"  "civil"    
-    ## [20,] "america"   "time"      "let"      "call"     "world"
+| Topic 1   | Topic 2  | Topic 3  | Topic 4 | Topic 5  |
+| :-------- | :------- | :------- | :------ | :------- |
+| us        | peopl    | govern   | can     | nation   |
+| nation    | shall    | nation   | govern  | upon     |
+| can       | great    | peac     | peac    | must     |
+| citizen   | upon     | state    | countri | new      |
+| constitut | one      | must     | state   | one      |
+| govern    | power    | war      | public  | everi    |
+| work      | countri  | peopl    | unit    | citizen  |
+| world     | may      | may      | everi   | year     |
+| great     | interest | power    | may     | peopl    |
+| state     | now      | us       | union   | great    |
+| peopl     | world    | good     | must    | right    |
+| law       | american | america  | nation  | made     |
+| free      | best     | time     | duti    | power    |
+| now       | govern   | world    | respect | secur    |
+| freedom   | us       | can      | offic   | need     |
+| hope      | duti     | congress | time    | state    |
+| power     | law      | great    | world   | free     |
+| make      | public   | men      | law     | countri  |
+| presid    | state    | countri  | right   | human    |
+| america   | right    | better   | power   | progress |
 
 ``` r
 x <- ttt_fit_topics (dat, years = 1789:1900, ntopics = 5)
-topicmodels::get_terms(x, 20)
+topicmodels::get_terms(x, 20) %>% knitr::kable()
 ```
 
-    ##       Topic 1     Topic 2     Topic 3    Topic 4    Topic 5    
-    ##  [1,] "nation"    "state"     "can"      "govern"   "countri"  
-    ##  [2,] "peopl"     "nation"    "govern"   "peopl"    "state"    
-    ##  [3,] "must"      "great"     "us"       "us"       "govern"   
-    ##  [4,] "may"       "can"       "new"      "power"    "time"     
-    ##  [5,] "great"     "make"      "must"     "peac"     "constitut"
-    ##  [6,] "law"       "upon"      "shall"    "countri"  "american" 
-    ##  [7,] "world"     "govern"    "may"      "world"    "power"    
-    ##  [8,] "govern"    "power"     "principl" "made"     "may"      
-    ##  [9,] "everi"     "citizen"   "world"    "law"      "year"     
-    ## [10,] "without"   "now"       "upon"     "nation"   "freedom"  
-    ## [11,] "us"        "must"      "freedom"  "american" "public"   
-    ## [12,] "shall"     "everi"     "everi"    "citizen"  "right"    
-    ## [13,] "men"       "give"      "duti"     "upon"     "best"     
-    ## [14,] "duti"      "secur"     "peopl"    "right"    "interest" 
-    ## [15,] "public"    "one"       "public"   "america"  "one"      
-    ## [16,] "right"     "countri"   "hope"     "everi"    "can"      
-    ## [17,] "upon"      "shall"     "citizen"  "new"      "forc"     
-    ## [18,] "constitut" "faith"     "live"     "now"      "foreign"  
-    ## [19,] "high"      "constitut" "peac"     "preserv"  "civil"    
-    ## [20,] "america"   "time"      "let"      "call"     "world"
+| Topic 1  | Topic 2   | Topic 3   | Topic 4  | Topic 5 |
+| :------- | :-------- | :-------- | :------- | :------ |
+| peopl    | govern    | everi     | nation   | can     |
+| power    | nation    | govern    | state    | nation  |
+| govern   | constitut | us        | countri  | countri |
+| great    | upon      | world     | peopl    | us      |
+| can      | war       | peopl     | law      | free    |
+| american | peopl     | state     | interest | upon    |
+| new      | right     | new       | us       | peac    |
+| time     | peac      | constitut | can      | citizen |
+| one      | now       | may       | shall    | time    |
+| must     | may       | upon      | great    | may     |
+| state    | public    | citizen   | now      | shall   |
+| make     | one       | power     | american | govern  |
+| law      | liberti   | must      | america  | must    |
+| act      | must      | right     | must     | union   |
+| unit     | freedom   | secur     | world    | purpos  |
+| best     | shall     | shall     | union    | great   |
+| us       | interest  | duti      | spirit   | state   |
+| peac     | law       | made      | principl | peopl   |
+| offic    | state     | let       | may      | power   |
+| place    | power     | faith     | congress | duti    |
 
 ``` r
 x <- ttt_fit_topics (dat, topic = "nation", ntopics = 5)
-topicmodels::get_terms(x, 20)
+topicmodels::get_terms(x, 20) %>% knitr::kable()
 ```
 
-    ##       Topic 1    Topic 2   Topic 3    Topic 4   Topic 5    
-    ##  [1,] "nation"   "nation"  "nation"   "nation"  "nation"   
-    ##  [2,] "great"    "citizen" "may"      "can"     "one"      
-    ##  [3,] "world"    "power"   "peopl"    "countri" "law"      
-    ##  [4,] "life"     "great"   "respect"  "america" "govern"   
-    ##  [5,] "new"      "us"      "everi"    "let"     "peopl"    
-    ##  [6,] "neighbor" "peopl"   "honor"    "bless"   "constitut"
-    ##  [7,] "right"    "upon"    "state"    "us"      "now"      
-    ##  [8,] "peopl"    "govern"  "govern"   "futur"   "parti"    
-    ##  [9,] "govern"   "peac"    "determin" "advanc"  "power"    
-    ## [10,] "day"      "purpos"  "without"  "great"   "war"      
-    ## [11,] "choic"    "presid"  "among"    "upon"    "time"     
-    ## [12,] "duti"     "one"     "citizen"  "govern"  "state"    
-    ## [13,] "protect"  "everi"   "upon"     "everi"   "part"     
-    ## [14,] "believ"   "respons" "exist"    "heart"   "world"    
-    ## [15,] "war"      "state"   "happi"    "singl"   "speak"    
-    ## [16,] "see"      "prosper" "influenc" "idea"    "full"     
-    ## [17,] "man"      "can"     "individu" "one"     "accept"   
-    ## [18,] "institut" "futur"   "shall"    "peopl"   "great"    
-    ## [19,] "peac"     "common"  "spirit"   "justic"  "strong"   
-    ## [20,] "mind"     "foreign" "interest" "right"   "place"
+| Topic 1   | Topic 2 | Topic 3  | Topic 4  | Topic 5   |
+| :-------- | :------ | :------- | :------- | :-------- |
+| nation    | nation  | nation   | nation   | nation    |
+| one       | us      | respect  | peopl    | great     |
+| peopl     | let     | time     | govern   | right     |
+| togeth    | respons | neighbor | upon     | govern    |
+| america   | world   | peopl    | everi    | power     |
+| govern    | peac    | work     | honor    | place     |
+| power     | upon    | made     | state    | citizen   |
+| now       | can     | life     | preserv  | world     |
+| servic    | power   | great    | may      | peopl     |
+| presid    | just    | must     | interest | can       |
+| god       | war     | need     | can      | speak     |
+| idea      | great   | without  | spirit   | everi     |
+| part      | citizen | protect  | duti     | constitut |
+| faith     | futur   | like     | free     | within    |
+| freedom   | everi   | justic   | determin | protect   |
+| constitut | new     | one      | among    | law       |
+| everi     | purpos  | man      | love     | like      |
+| choic     | peopl   | world    | parti    | limit     |
+| offic     | see     | live     | union    | execut    |
+| state     | shall   | bodi     | happi    | common    |
