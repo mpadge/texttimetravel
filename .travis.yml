@@ -1,6 +1,5 @@
 language: R
 warnings_are_errors: true
-sudo: true
 cache: packages
 
 matrix:
@@ -25,11 +24,16 @@ matrix:
           #env: DEPS=cran
           #os: osx
 
-before_install:
-    - sudo apt install --yes libgsl0-dev libpoppler-cpp-dev
-      #- Rscript -e 'install.packages("topicmodels"))'
+addons:
+    apt:
+        - libpoppler-cpp-dev
+        - libgsl0-dev 
 
 notifications:
   email:
     on_success: change
     on_failure: change
+
+# Prevents Travis timeout for building libpoppler
+before_install:
+    - (while true; do echo 'Ping? Pong!'; sleep 500; done) &
