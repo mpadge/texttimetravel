@@ -26,10 +26,19 @@ matrix:
 
 addons:
     apt:
-        - libpoppler-cpp-dev
-        - libgsl0-dev 
+        packages:
+            - libpoppler-cpp-dev
+            - libgsl0-dev 
+
+#before_install:
+#    - sudo apt install --yes libgsl0-dev libpoppler-cpp-dev
+#      #- Rscript -e 'install.packages("topicmodels"))'
 
 notifications:
   email:
     on_success: change
     on_failure: change
+
+# Prevents Travis timeout for building libpoppler
+before_install:
+    - (while true; do echo 'Ping? Pong!'; sleep 500; done) &
