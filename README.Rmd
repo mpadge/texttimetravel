@@ -15,3 +15,40 @@ devtools::install_github ('mpadge/texttimetravel')
 
 ## Usage
 
+Load packages and a temporally-structured corpus to work with:
+
+```{r load, message = FALSE}
+library(texttimetravel)
+library (quanteda)
+library (topicmodels)
+dat <- data_corpus_inaugural # from quanteda
+```
+
+Then convert to desired tokenized form:
+```{r tokenize}
+tok <- tokens (dat, remove_numbers = TRUE, remove_punct = TRUE,
+               remove_separators = TRUE)
+tok <- tokens_remove (tok, stopwords("english"))
+```
+
+
+## keywords
+
+```{r keywords}
+x <- ttt_keyness (tok, "school")
+head (x, n = 20)
+x <- ttt_keyness (tok, "politic*")
+head (x, n = 20)
+```
+
+## topics
+
+```{r topics}
+x <- ttt_fit_topics (dat, ntopics = 5)
+topicmodels::get_terms(x, 20)
+x <- ttt_fit_topics (dat, years = 1789:1900, ntopics = 5)
+topicmodels::get_terms(x, 20)
+x <- ttt_fit_topics (dat, topic = "nation", ntopics = 5)
+topicmodels::get_terms(x, 20)
+```
+
