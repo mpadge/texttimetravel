@@ -13,6 +13,7 @@
 #' phrase.
 #' @param filename If specified, the topic model is saved to the nominated file
 #' and can be re-loaded with `x <- readRDS(filename)`.
+#' @param quiet If `TRUE`, display progress information on screen.
 #' @return An \pkg{topicmodels} object of class `LDA`.
 #'
 #' @note This function may take a long time to execute; please be patient.

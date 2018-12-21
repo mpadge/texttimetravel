@@ -22,6 +22,8 @@ phrase.}
 
 \item{filename}{If specified, the topic model is saved to the nominated file
 and can be re-loaded with `x <- readRDS(filename)`.}
+
+\item{quiet}{If `TRUE`, display progress information on screen.}
 }
 \value{
 An \pkg{topicmodels} object of class `LDA`.
