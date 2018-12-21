@@ -4,14 +4,14 @@
 \alias{ttt_fit_topics}
 \title{ttt_topics}
 \usage{
-ttt_fit_topics(dat, years = NULL, ntopics = 20, topic = NULL,
+ttt_fit_topics(tok, years = NULL, ntopics = 20, topic = NULL,
   filename = NULL, quiet = FALSE)
 }
 \arguments{
-\item{dat}{A temporally-structued \pkg{quanteda} corpus with a `docar` of
-`year`}
+\item{tok}{A \pkg{quanteda} `tokens` object}
 
-\item{years}{If specified, restrict topic models to specified years only}
+\item{years}{If specified, restrict topic models to specified years only
+(requires `tok` to include a `docvars` of "year" or similar).}
 
 \item{ntopics}{Number of topics to be fitted. This should be reasonably
 large, to allow words not strongly associated with any primary topics to be
@@ -36,8 +36,13 @@ to fit topics around a specified word or phrase.
 This function may take a long time to execute; please be patient.
 }
 \examples{
-dat <- quanteda::data_corpus_inaugural
-x <- ttt_fit_topics (dat, ntopics = 5)
+library(quanteda)
+dat <- data_corpus_inaugural \%>\% # from quanteda
+     corpus_reshape (to = "sentences") # convert documents to sentences
+tok <- tokens (dat, remove_numbers = TRUE, remove_punct = TRUE,
+               remove_separators = TRUE)
+tok <- tokens_remove(tok, stopwords("english"))
+x <- ttt_fit_topics (tok, ntopics = 5)
 topicmodels::get_terms(x, 20)
-x <- ttt_fit_topics (dat, years = 1789:1900, ntopics = 5)
+x <- ttt_fit_topics (tok, years = 1789:1900, ntopics = 5)
 }

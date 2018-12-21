@@ -3,9 +3,9 @@
 #' Fit sentence-based topic models for all of some of a corpus, with the ability
 #' to fit topics around a specified word or phrase.
 #'
-#' @param dat A temporally-structued \pkg{quanteda} corpus with a `docar` of
-#' `year`
+#' @param tok A \pkg{quanteda} `tokens` object
 #' @param years If specified, restrict topic models to specified years only
+#' (requires `tok` to include a `docvars` of "year" or similar).
 #' @param ntopics Number of topics to be fitted. This should be reasonably
 #' large, to allow words not strongly associated with any primary topics to be
 #' allocated to latter, effectively meaningless topics.
@@ -20,47 +20,44 @@
 #'
 #' @export
 #' @examples
-#' dat <- quanteda::data_corpus_inaugural
-#' x <- ttt_fit_topics (dat, ntopics = 5)
+#' library(quanteda)
+#' dat <- data_corpus_inaugural %>% # from quanteda
+#'      corpus_reshape (to = "sentences") # convert documents to sentences
+#' tok <- tokens (dat, remove_numbers = TRUE, remove_punct = TRUE,
+#'                remove_separators = TRUE)
+#' tok <- tokens_remove(tok, stopwords("english"))
+#' x <- ttt_fit_topics (tok, ntopics = 5)
 #' topicmodels::get_terms(x, 20)
-#' x <- ttt_fit_topics (dat, years = 1789:1900, ntopics = 5)
-ttt_fit_topics <- function (dat, years = NULL, ntopics = 20, topic = NULL,
+#' x <- ttt_fit_topics (tok, years = 1789:1900, ntopics = 5)
+ttt_fit_topics <- function (tok, years = NULL, ntopics = 20, topic = NULL,
                             filename = NULL, quiet = FALSE)
 {
+    if (!methods::is (tok, "tokens"))
+        stop ("ttt_fit_topics requires a quanteda tokens object")
+
     # rm no visible binding notes
     year <- index <- NULL
     if (!is.null (years))
     {
-        dv <- quanteda::docvars (dat)
+        dv <- quanteda::docvars (tok)
         yvar <- names (dv) [grep ("year", names (dv), ignore.case = TRUE)]
-        quanteda::corpus_subset (dat, dv [[yvar]] %in% years)
+        tok <- quanteda::tokens_subset (tok, dv [[yvar]] %in% years)
     }
-    if (!dat$settings$units == "sentences")
-        dat <- quanteda::corpus_reshape (dat, to = "sentences")
-    tok <- quanteda::tokens (dat, remove_numbers = TRUE, remove_punct = TRUE,
-                             remove_separators = TRUE)
-    d <- quanteda::dfm (tok,
-                        remove = c (letters, quanteda::stopwords ("english")),
-                        stem = TRUE,
-                        remove_punct = TRUE)
 
     if (!is.null (topic))
     {
         dfm_topic <- quanteda::tokens_keep (tok, quanteda::phrase (topic)) %>%
             quanteda::dfm ()
         indx <- which (as.numeric (dfm_topic) > 0)
-        quanteda::docvars (dat, "index") <- seq (quanteda::ndoc (dat))
-        d <- quanteda::corpus_subset (dat, index %in% indx)
-        tok <- quanteda::tokens (d, remove_numbers = TRUE, remove_punct = TRUE,
-                                 remove_separators = TRUE)
-        d <- quanteda::dfm (tok,
-                            remove = c (letters, quanteda::stopwords ("english")),
-                            stem = TRUE,
-                            remove_punct = TRUE)
+        quanteda::docvars (tok, "index") <- seq (quanteda::ndoc (tok))
+        tok <- quanteda::tokens_subset (tok, index %in% indx)
     }
-
-    dtm <- quanteda::convert (d, to = "topicmodels")
-    res <- topicmodels::LDA (dtm, k = ntopics)
+    tm <- quanteda::dfm (tok,
+                        remove = c (letters, quanteda::stopwords ("english")),
+                        stem = TRUE,
+                        remove_punct = TRUE) %>%
+        quanteda::convert (to = "topicmodels")
+    res <- topicmodels::LDA (tm, k = ntopics)
     if (!is.null (filename))
         saveRDS (res, file = filename)
     return (res)
