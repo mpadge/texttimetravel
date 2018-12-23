@@ -18,13 +18,14 @@ devtools::install_github ('mpadge/texttimetravel')
 Load packages and a temporally-structured corpus to work with:
 
 ```{r load, message = FALSE}
-library(texttimetravel)
+library (texttimetravel)
 library (quanteda)
-library (topicmodels)
-dat <- data_corpus_inaugural # from quanteda
+dat <- data_corpus_inaugural
+#dat <- corpus_reshape (dat, to = "sentences") # if desired
 ```
-
-Then convert to desired tokenized form:
+(`data_corpus_inaugural` is a sample corpus from `quanteda` of inaugural speeches
+of US presidents.) Then use `quanteda` functions to convert to desired tokenized
+form:
 ```{r tokenize}
 tok <- tokens (dat, remove_numbers = TRUE, remove_punct = TRUE,
                remove_separators = TRUE)
@@ -35,11 +36,14 @@ tok <- tokens_remove (tok, stopwords("english"))
 ## keywords
 
 ```{r keywords}
-x <- ttt_keyness (tok, "school")
-head (x, n = 10) %>% knitr::kable()
 x <- ttt_keyness (tok, "politic*")
 head (x, n = 10) %>% knitr::kable()
+x <- ttt_keyness (tok, "school")
+head (x, n = 10) %>% knitr::kable()
 ```
+Note that all words associated with "school" occur only once in the corpus, and
+so even though $p = 0$ in all cases, these associations can not be interpreted
+as statistically meaningful.
 
 ## topics
 
