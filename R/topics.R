@@ -36,12 +36,14 @@ ttt_fit_topics <- function (tok, years = NULL, ntopics = 20, topic = NULL,
         stop ("ttt_fit_topics requires a quanteda tokens object")
 
     # rm no visible binding notes
-    year <- index <- NULL
+    index <- NULL
+    dv <- quanteda::docvars (tok)
+    yvar <- names (dv) [grep ("year", names (dv), ignore.case = TRUE)]
+
     if (!is.null (years))
     {
-        dv <- quanteda::docvars (tok)
-        yvar <- names (dv) [grep ("year", names (dv), ignore.case = TRUE)]
         tok <- quanteda::tokens_subset (tok, dv [[yvar]] %in% years)
+        dv <- quanteda::docvars (tok)
     }
 
     if (!is.null (topic))
@@ -51,13 +53,21 @@ ttt_fit_topics <- function (tok, years = NULL, ntopics = 20, topic = NULL,
         indx <- which (as.numeric (dfm_topic) > 0)
         quanteda::docvars (tok, "index") <- seq (quanteda::ndoc (tok))
         tok <- quanteda::tokens_subset (tok, index %in% indx)
+        dv <- quanteda::docvars (tok)
     }
     tm <- quanteda::dfm (tok,
                         remove = c (letters, quanteda::stopwords ("english")),
                         stem = TRUE,
                         remove_punct = TRUE) %>%
         quanteda::convert (to = "topicmodels")
+
     res <- topicmodels::LDA (tm, k = ntopics)
+
+    # Then just make sure that the names of the documents have the year as the
+    # first four characters. This is used in the print functions
+    if (!all (substring (names (tok), 1, 4) == dv [[yvar]]))
+        names (tok) <- paste0 (dv [[yvar]], "_", names (tok))
+
     if (!is.null (filename))
         saveRDS (res, file = filename)
     return (res)

@@ -26,17 +26,25 @@ dat <- data_corpus_inaugural
 #dat <- corpus_reshape (dat, to = "sentences") # if desired
 ```
 
-(`data_corpus_inaugural` is a sample corpus from `quanteda` of inaugural
-speeches of US presidents.) Then use `quanteda` functions to convert to
-desired tokenized form:
+([`data_corpus_inaugural`](https://quanteda.io/reference/data_corpus_inaugural.html)
+is a sample corpus from [`quanteda`](https://quanteda.io) of inaugural
+speeches of US presidents.) Then use [`quanteda`](https://quanteda.io)
+functions to convert to desired tokenized form:
 
 ``` r
-tok <- tokens (dat, remove_numbers = TRUE, remove_punct = TRUE,
+tok <- tokens (dat,
+               remove_numbers = TRUE,
+               remove_punct = TRUE,
                remove_separators = TRUE)
 tok <- tokens_remove (tok, stopwords("english"))
 ```
 
 ## keywords
+
+Keyword associations can be extracted with the `ttt_keyness` function,
+which relies on the `quanteda::keyness` function, yet simplifies the
+interface by allowing keyness statistics to be extracted with a single
+function call.
 
 ``` r
 x <- ttt_keyness (tok, "politic*")
@@ -79,56 +87,64 @@ head (x, n = 10) %>% knitr::kable()
 
 ## topics
 
+The `timetextravel` function `ttt_fit_topics` provides a convenient
+wrapper around the functions provided by the
+[`topicmodels`](https://cran.r-project.org/package=topicmodels) package,
+and provides additional functionality via two additional parameters: 1.
+`years`, allowing topic models to be fitted only to those portions of a
+corpus corresponding to the specified years; 2. `topic`, allowing models
+to be fitted to a specified topic phrase.
+
 ``` r
-x <- ttt_fit_topics (dat, ntopics = 5)
+x <- ttt_fit_topics (tok, ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()
 ```
 
-| Topic 1   | Topic 2 | Topic 3  | Topic 4 | Topic 5 |
-| :-------- | :------ | :------- | :------ | :------ |
-| govern    | peopl   | can      | nation  | nation  |
-| nation    | us      | us       | peopl   | state   |
-| power     | may     | law      | govern  | can     |
-| everi     | one     | shall    | state   | upon    |
-| peac      | great   | american | public  | world   |
-| unit      | upon    | everi    | world   | great   |
-| america   | must    | power    | shall   | must    |
-| constitut | power   | must     | great   | peopl   |
-| freedom   | citizen | union    | us      | never   |
-| right     | new     | one      | countri | need    |
+| Topic 1  | Topic 2 | Topic 3   | Topic 4 | Topic 5 |
+| :------- | :------ | :-------- | :------ | :------ |
+| us       | peopl   | govern    | govern  | nation  |
+| nation   | govern  | state     | state   | world   |
+| world    | nation  | constitut | nation  | peopl   |
+| america  | law     | peopl     | countri | freedom |
+| new      | upon    | power     | great   | must    |
+| peopl    | can     | can       | public  | us      |
+| can      | must    | upon      | power   | can     |
+| american | state   | may       | peopl   | shall   |
+| must     | countri | nation    | may     | upon    |
+| govern   | secur   | countri   | shall   | peac    |
 
 ``` r
-x <- ttt_fit_topics (dat, years = 1789:1900, ntopics = 5)
+x <- ttt_fit_topics (tok, years = 1789:1900, ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()
 ```
 
-| Topic 1  | Topic 2 | Topic 3 | Topic 4   | Topic 5 |
-| :------- | :------ | :------ | :-------- | :------ |
-| state    | nation  | govern  | can       | can     |
-| us       | govern  | peopl   | peac      | great   |
-| nation   | us      | nation  | everi     | may     |
-| citizen  | peopl   | citizen | state     | peopl   |
-| shall    | may     | free    | us        | must    |
-| countri  | upon    | great   | nation    | world   |
-| peopl    | america | must    | constitut | law     |
-| american | right   | countri | shall     | power   |
-| time     | power   | make    | must      | make    |
-| world    | time    | unit    | right     | countri |
+| Topic 1 | Topic 2   | Topic 3   | Topic 4 | Topic 5   |
+| :------ | :-------- | :-------- | :------ | :-------- |
+| govern  | power     | state     | peopl   | nation    |
+| nation  | govern    | govern    | upon    | state     |
+| great   | constitut | constitut | govern  | govern    |
+| state   | state     | union     | law     | peopl     |
+| power   | peopl     | can       | state   | constitut |
+| war     | may       | shall     | shall   | countri   |
+| union   | upon      | may       | nation  | may       |
+| countri | execut    | power     | countri | can       |
+| may     | citizen   | peopl     | public  | great     |
+| us      | can       | right     | great   | unit      |
 
 ``` r
-x <- ttt_fit_topics (dat, topic = "nation", ntopics = 5)
+x <- ttt_fit_topics (tok, topic = "nation", ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()
 ```
 
-| Topic 1  | Topic 2 | Topic 3 | Topic 4 | Topic 5 |
-| :------- | :------ | :------ | :------ | :------ |
-| nation   | nation  | nation  | nation  | nation  |
-| peopl    | great   | may     | upon    | citizen |
-| govern   | one     | peopl   | power   | presid  |
-| one      | can     | govern  | right   | us      |
-| everi    | part    | everi   | peopl   | law     |
-| like     | now     | parti   | govern  | justic  |
-| neighbor | power   | state   | peac    | america |
-| live     | place   | honor   | us      | govern  |
-| believ   | new     | spirit  | shall   | ever    |
-| world    | respons | happi   | great   | peopl   |
+| Topic 1 | Topic 2 | Topic 3  | Topic 4  | Topic 5   |
+| :------ | :------ | :------- | :------- | :-------- |
+| nation  | nation  | us       | govern   | govern    |
+| world   | govern  | nation   | law      | peopl     |
+| peopl   | state   | world    | upon     | power     |
+| govern  | peopl   | america  | state    | state     |
+| can     | countri | peopl    | peopl    | constitut |
+| must    | power   | new      | great    | upon      |
+| us      | may     | can      | countri  | may       |
+| peac    | everi   | american | congress | shall     |
+| great   | public  | must     | nation   | citizen   |
+| upon    | great   | time     | must     | right     |

@@ -17,23 +17,35 @@ devtools::install_github ('mpadge/texttimetravel')
 
 Load packages and a temporally-structured corpus to work with:
 
-```{r load, message = FALSE}
+```{r load-real, echo = FALSE, message = FALSE}
+devtools::load_all (".", export_all = FALSE)
+library (quanteda)
+dat <- data_corpus_inaugural
+```
+```{r load-print, eval = FALSE}
 library (texttimetravel)
 library (quanteda)
 dat <- data_corpus_inaugural
 #dat <- corpus_reshape (dat, to = "sentences") # if desired
 ```
-(`data_corpus_inaugural` is a sample corpus from `quanteda` of inaugural speeches
-of US presidents.) Then use `quanteda` functions to convert to desired tokenized
-form:
+([`data_corpus_inaugural`](https://quanteda.io/reference/data_corpus_inaugural.html)
+is a sample corpus from [`quanteda`](https://quanteda.io) of inaugural speeches
+of US presidents.) Then use [`quanteda`](https://quanteda.io) functions to
+convert to desired tokenized form:
 ```{r tokenize}
-tok <- tokens (dat, remove_numbers = TRUE, remove_punct = TRUE,
+tok <- tokens (dat,
+               remove_numbers = TRUE,
+               remove_punct = TRUE,
                remove_separators = TRUE)
 tok <- tokens_remove (tok, stopwords("english"))
 ```
 
 
 ## keywords
+
+Keyword associations can be extracted with the `ttt_keyness` function, which
+relies on the `quanteda::keyness` function, yet simplifies the interface by
+allowing keyness statistics to be extracted with a single function call.
 
 ```{r keywords}
 x <- ttt_keyness (tok, "politic*")
@@ -47,12 +59,20 @@ as statistically meaningful.
 
 ## topics
 
+The `timetextravel` function `ttt_fit_topics` provides a convenient wrapper
+around the functions provided by the
+[`topicmodels`](https://cran.r-project.org/package=topicmodels) package, and
+provides additional functionality via two additional parameters:
+1. `years`, allowing topic models to be fitted only to those portions of a
+   corpus corresponding to the specified years;
+2. `topic`, allowing models to be fitted to a specified topic phrase.
+
 ```{r topics}
-x <- ttt_fit_topics (dat, ntopics = 5)
+x <- ttt_fit_topics (tok, ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()
-x <- ttt_fit_topics (dat, years = 1789:1900, ntopics = 5)
+x <- ttt_fit_topics (tok, years = 1789:1900, ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()
-x <- ttt_fit_topics (dat, topic = "nation", ntopics = 5)
+x <- ttt_fit_topics (tok, topic = "nation", ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()
 ```
 
