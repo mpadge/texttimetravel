@@ -55,7 +55,7 @@ head (x, n = 10) %>% knitr::kable()
 ```
 
 Note that all words associated with "school" occur only once in the corpus, and
-so even though $p = 0$ in all cases, these associations can not be interpreted
+so even though `p = 0` in all cases, these associations can not be interpreted
 as statistically meaningful.
 
 ## topics
@@ -67,7 +67,7 @@ provides additional functionality via two additional parameters:
 
 1. `years`, allowing topic models to be fitted only to those portions of a
    corpus corresponding to the specified years;
-2. `topic`, allowing models to be fitted to a specified topic phrase.
+2. `topic`, allowing models to be fitted around a specified topic phrase.
 
 ```{r topics}
 x <- ttt_fit_topics (tok, ntopics = 5)
