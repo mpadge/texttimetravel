@@ -50,7 +50,7 @@ allowing keyness statistics to be extracted with a single function call.
 ```{r keywords}
 x <- ttt_keyness (tok, "politic*")
 head (x, n = 10) %>% knitr::kable()
-x <- ttt_keyness (tok, "school")
+x <- ttt_keyness (tok, "school*")
 head (x, n = 10) %>% knitr::kable()
 ```
 
