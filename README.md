@@ -69,82 +69,86 @@ x <- ttt_keyness (tok, "school")
 head (x, n = 10) %>% knitr::kable()
 ```
 
-| feature    |           chi2 |     p |   n\_target |                              n\_reference |
-| :--------- | -------------: | ----: | ----------: | ----------------------------------------: |
-| school     |      2130.8134 |     0 |           3 |                                         0 |
-| laissez    |       255.2899 |     0 |           1 |                                         0 |
-| faire      |       255.2899 |     0 |           1 |                                         0 |
-| outward    |       255.2899 |     0 |           1 |                                         0 |
-| attest     |       255.2899 |     0 |           1 |                                         0 |
-| teacher    |       255.2899 |     0 |           1 |                                         0 |
-| miss       |       255.2899 |     0 |           1 |                                         0 |
-| julia      |       255.2899 |     0 |           1 |                                         0 |
-| coleman    |       255.2899 |     0 |           1 |                                         0 |
-| writers    |       127.1479 |     0 |           1 |                                         1 |
-| Note that  |   all words as | socia | ted with "s | chool" occur only once in the corpus, and |
-| so even th | ough \(p = 0\) |  in a | ll cases, t |  hese associations can not be interpreted |
-| as statist |   ically meani | ngful |           . |                                           |
+| feature |      chi2 | p | n\_target | n\_reference |
+| :------ | --------: | -: | --------: | -----------: |
+| school  | 2130.8134 | 0 |         3 |            0 |
+| laissez |  255.2899 | 0 |         1 |            0 |
+| faire   |  255.2899 | 0 |         1 |            0 |
+| outward |  255.2899 | 0 |         1 |            0 |
+| attest  |  255.2899 | 0 |         1 |            0 |
+| teacher |  255.2899 | 0 |         1 |            0 |
+| miss    |  255.2899 | 0 |         1 |            0 |
+| julia   |  255.2899 | 0 |         1 |            0 |
+| coleman |  255.2899 | 0 |         1 |            0 |
+| writers |  127.1479 | 0 |         1 |            1 |
+
+Note that all words associated with “school” occur only once in the
+corpus, and so even though \(p = 0\) in all cases, these associations
+can not be interpreted as statistically meaningful.
 
 ## topics
 
-The `timetextravel` function `ttt_fit_topics` provides a convenient
-wrapper around the functions provided by the
+The function `ttt_fit_topics` provides a convenient wrapper around the
+functions provided by the
 [`topicmodels`](https://cran.r-project.org/package=topicmodels) package,
-and provides additional functionality via two additional parameters: 1.
-`years`, allowing topic models to be fitted only to those portions of a
-corpus corresponding to the specified years; 2. `topic`, allowing models
-to be fitted to a specified topic phrase.
+and provides additional functionality via two additional parameters:
+
+1.  `years`, allowing topic models to be fitted only to those portions
+    of a corpus corresponding to the specified years;
+2.  `topic`, allowing models to be fitted to a specified topic phrase.
+
+<!-- end list -->
 
 ``` r
 x <- ttt_fit_topics (tok, ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()
 ```
 
-| Topic 1  | Topic 2 | Topic 3   | Topic 4 | Topic 5 |
-| :------- | :------ | :-------- | :------ | :------ |
-| us       | peopl   | govern    | govern  | nation  |
-| nation   | govern  | state     | state   | world   |
-| world    | nation  | constitut | nation  | peopl   |
-| america  | law     | peopl     | countri | freedom |
-| new      | upon    | power     | great   | must    |
-| peopl    | can     | can       | public  | us      |
-| can      | must    | upon      | power   | can     |
-| american | state   | may       | peopl   | shall   |
-| must     | countri | nation    | may     | upon    |
-| govern   | secur   | countri   | shall   | peac    |
+| Topic 1  | Topic 2   | Topic 3 | Topic 4  | Topic 5 |
+| :------- | :-------- | :------ | :------- | :------ |
+| law      | state     | nation  | us       | nation  |
+| upon     | govern    | world   | nation   | govern  |
+| govern   | power     | must    | world    | peopl   |
+| state    | constitut | can     | america  | upon    |
+| peopl    | may       | peopl   | peopl    | can     |
+| great    | peopl     | us      | new      | public  |
+| shall    | union     | war     | can      | countri |
+| nation   | countri   | freedom | american | us      |
+| congress | great     | govern  | must     | peac    |
+| may      | can       | peac    | time     | law     |
 
 ``` r
 x <- ttt_fit_topics (tok, years = 1789:1900, ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()
 ```
 
-| Topic 1 | Topic 2   | Topic 3   | Topic 4 | Topic 5   |
-| :------ | :-------- | :-------- | :------ | :-------- |
-| govern  | power     | state     | peopl   | nation    |
-| nation  | govern    | govern    | upon    | state     |
-| great   | constitut | constitut | govern  | govern    |
-| state   | state     | union     | law     | peopl     |
-| power   | peopl     | can       | state   | constitut |
-| war     | may       | shall     | shall   | countri   |
-| union   | upon      | may       | nation  | may       |
-| countri | execut    | power     | countri | can       |
-| may     | citizen   | peopl     | public  | great     |
-| us      | can       | right     | great   | unit      |
+| Topic 1 | Topic 2   | Topic 3 | Topic 4   | Topic 5   |
+| :------ | :-------- | :------ | :-------- | :-------- |
+| state   | peopl     | nation  | govern    | govern    |
+| govern  | state     | govern  | constitut | nation    |
+| power   | govern    | state   | state     | peopl     |
+| nation  | upon      | everi   | power     | constitut |
+| may     | law       | countri | peopl     | countri   |
+| citizen | shall     | peopl   | upon      | may       |
+| union   | nation    | can     | countri   | union     |
+| public  | constitut | may     | can       | public    |
+| peopl   | great     | power   | may       | state     |
+| countri | public    | great   | one       | power     |
 
 ``` r
 x <- ttt_fit_topics (tok, topic = "nation", ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()
 ```
 
-| Topic 1 | Topic 2 | Topic 3  | Topic 4  | Topic 5   |
-| :------ | :------ | :------- | :------- | :-------- |
-| nation  | nation  | us       | govern   | govern    |
-| world   | govern  | nation   | law      | peopl     |
-| peopl   | state   | world    | upon     | power     |
-| govern  | peopl   | america  | state    | state     |
-| can     | countri | peopl    | peopl    | constitut |
-| must    | power   | new      | great    | upon      |
-| us      | may     | can      | countri  | may       |
-| peac    | everi   | american | congress | shall     |
-| great   | public  | must     | nation   | citizen   |
-| upon    | great   | time     | must     | right     |
+| Topic 1 | Topic 2   | Topic 3 | Topic 4  | Topic 5   |
+| :------ | :-------- | :------ | :------- | :-------- |
+| nation  | power     | govern  | us       | govern    |
+| peopl   | govern    | state   | nation   | nation    |
+| world   | upon      | peopl   | world    | state     |
+| can     | peopl     | nation  | america  | peopl     |
+| us      | state     | great   | new      | public    |
+| peac    | constitut | law     | must     | power     |
+| must    | may       | upon    | peopl    | countri   |
+| great   | can       | countri | american | constitut |
+| govern  | countri   | may     | can      | union     |
+| life    | great     | war     | let      | may       |

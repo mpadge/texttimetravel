@@ -53,16 +53,18 @@ head (x, n = 10) %>% knitr::kable()
 x <- ttt_keyness (tok, "school")
 head (x, n = 10) %>% knitr::kable()
 ```
+
 Note that all words associated with "school" occur only once in the corpus, and
 so even though $p = 0$ in all cases, these associations can not be interpreted
 as statistically meaningful.
 
 ## topics
 
-The `timetextravel` function `ttt_fit_topics` provides a convenient wrapper
-around the functions provided by the
+The function `ttt_fit_topics` provides a convenient wrapper around the functions
+provided by the
 [`topicmodels`](https://cran.r-project.org/package=topicmodels) package, and
 provides additional functionality via two additional parameters:
+
 1. `years`, allowing topic models to be fitted only to those portions of a
    corpus corresponding to the specified years;
 2. `topic`, allowing models to be fitted to a specified topic phrase.
