@@ -44,7 +44,7 @@ ttt_keyness <- function (x, word = "school", window = 10)
 
     res <- quanteda::textstat_keyness (rbind (word_dfm, not_word_dfm),
                                        seq_len (quanteda::ndoc (word_dfm)))
-    res$target_total <- sum (word_dfm)
-    res$reference_total <- sum (not_word_dfm)
+    res$n_target_rel <- res$n_target / sum (word_dfm)
+    res$n_reference_rel <- res$n_reference / sum (not_word_dfm)
     return (res)
 }
