@@ -4,7 +4,7 @@
 \alias{ttt_keyness}
 \title{ttt_keyness}
 \usage{
-ttt_keyness(x, word = "school", window = 10)
+ttt_keyness(x, word = "school", window = 10, remove_keyword = FALSE)
 }
 \arguments{
 \item{x}{A \pkg{quanteda} `tokens` list, obtained by `tokens(corpus)`.}
@@ -15,6 +15,9 @@ calculated.}
 \item{window}{Passed to \pkg{quanteda} `tokens_keep/remove` functions; the
 number of words surrounding each instance of `word` to be considered in
 measures of assocation.}
+
+\item{remove_keyword}{If `TRUE`, remove the specified keyword from results,
+leaving only associations with that word not the word itself.}
 }
 \value{
 A \pkg{quanteda} `keyness` object listing words (`features`) and

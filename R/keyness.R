@@ -9,6 +9,8 @@
 #' @param window Passed to \pkg{quanteda} `tokens_keep/remove` functions; the
 #' number of words surrounding each instance of `word` to be considered in
 #' measures of assocation.
+#' @param remove_keyword If `TRUE`, remove the specified keyword from results,
+#' leaving only associations with that word not the word itself.
 #' @return A \pkg{quanteda} `keyness` object listing words (`features`) and
 #' associated keyness statistics.
 #' @export
@@ -23,7 +25,8 @@
 #' head (x, n = 20)
 #' x <- ttt_keyness (tok, "politic*")
 #' head (x, n = 20)
-ttt_keyness <- function (x, word = "school", window = 10)
+ttt_keyness <- function (x, word = "school", window = 10,
+                         remove_keyword = FALSE)
 {
     if (!methods::is (x, "tokens"))
     {
