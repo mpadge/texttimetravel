@@ -3,6 +3,9 @@
 
 # texttimetravel
 
+Developers: Mark Padgham ([@mpadge](https://github.com/mpadge) and Felicity
+Jensz ([@fjensz](https://github.com/fjensz).
+
 Tools for analysing temporally structured text collections, including tools for
 reading large sets of texts in (via
 [`pdftools`](https://github.com/ropensci/pdftools)), and for time series

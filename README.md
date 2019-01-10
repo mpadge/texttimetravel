@@ -5,6 +5,9 @@ Active](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostat
 
 # texttimetravel
 
+Developers: Mark Padgham (\[@mpadge\](<https://github.com/mpadge>) and
+Felicity Jensz (\[@fjensz\](<https://github.com/fjensz>).
+
 Tools for analysing temporally structured text collections, including
 tools for reading large sets of texts in (via
 [`pdftools`](https://github.com/ropensci/pdftools)), and for time series
@@ -115,53 +118,53 @@ x <- ttt_fit_topics (tok, ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()
 ```
 
-| Topic 1 | Topic 2   | Topic 3 | Topic 4  | Topic 5 |
-| :------ | :-------- | :------ | :------- | :------ |
-| peopl   | constitut | us      | nation   | govern  |
-| govern  | govern    | nation  | america  | state   |
-| upon    | state     | world   | us       | nation  |
-| nation  | power     | peopl   | world    | countri |
-| law     | peopl     | can     | american | power   |
-| must    | can       | new     | peopl    | peopl   |
-| can     | may       | must    | can      | public  |
-| countri | upon      | govern  | must     | everi   |
-| state   | nation    | time    | new      | great   |
-| great   | shall     | great   | freedom  | may     |
+| Topic 1  | Topic 2 | Topic 3 | Topic 4   | Topic 5   |
+| :------- | :------ | :------ | :-------- | :-------- |
+| us       | govern  | nation  | govern    | govern    |
+| nation   | upon    | world   | peopl     | state     |
+| america  | peopl   | peopl   | constitut | power     |
+| new      | law     | peac    | can       | peopl     |
+| world    | nation  | can     | nation    | nation    |
+| peopl    | state   | war     | state     | countri   |
+| american | great   | us      | upon      | may       |
+| must     | can     | shall   | shall     | constitut |
+| can      | must    | must    | law       | great     |
+| govern   | shall   | free    | right     | union     |
 
 ``` r
 x <- ttt_fit_topics (tok, years = 1789:1900, ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()
 ```
 
-| Topic 1      | Topic 2    | Topic 3    | Topic 4    | Topic 5                     |
-| :----------- | :--------- | :--------- | :--------- | :-------------------------- |
-| peopl        | govern     | state      | upon       | state                       |
-| power        | nation     | nation     | nation     | govern                      |
-| govern       | peopl      | govern     | govern     | constitut                   |
-| state        | us         | great      | peopl      | union                       |
-| constitut    | power      | may        | countri    | shall                       |
-| upon         | upon       | peopl      | great      | peopl                       |
-| may          | countri    | everi      | state      | can                         |
-| citizen      | right      | power      | law        | law                         |
-| countri      | public     | public     | war        | power                       |
-| great        | everi      | countri    | now        | may                         |
-| Note the tok | en “everi” | that appe  | ars in the | second topic is a mistaken  |
-| tokenization | of the wo  | rds "perse | rvering",  | “feverish”, and “severity”. |
+| Topic 1      | Topic 2    | Topic 3      | Topic 4    | Topic 5                   |
+| :----------- | :--------- | :----------- | :--------- | :------------------------ |
+| state        | nation     | constitut    | govern     | power                     |
+| govern       | govern     | state        | peopl      | govern                    |
+| power        | state      | law          | upon       | constitut                 |
+| peopl        | power      | peopl        | nation     | peopl                     |
+| countri      | may        | upon         | countri    | state                     |
+| union        | public     | can          | public     | may                       |
+| nation       | peopl      | shall        | everi      | execut                    |
+| constitut    | great      | nation       | us         | can                       |
+| may          | countri    | govern       | law        | upon                      |
+| shall        | union      | right        | state      | one                       |
+| Note the tok | en “everi” | that appear  | s in the s | econd topic is a mistaken |
+| tokenization | of the wo  | rds "perserv | ering“,”f  | everish“, and”severity".  |
 
 ``` r
 x <- ttt_fit_topics (tok, topic = "nation", ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()
 ```
 
-| Topic 1 | Topic 2 | Topic 3   | Topic 4 | Topic 5  |
-| :------ | :------ | :-------- | :------ | :------- |
-| govern  | nation  | govern    | us      | nation   |
-| state   | peopl   | power     | nation  | peopl    |
-| nation  | govern  | state     | world   | us       |
-| peopl   | world   | peopl     | can     | america  |
-| great   | can     | constitut | new     | world    |
-| countri | must    | may       | america | american |
-| upon    | peac    | can       | must    | freedom  |
-| law     | upon    | upon      | peopl   | must     |
-| may     | us      | countri   | let     | everi    |
-| public  | shall   | everi     | time    | one      |
+| Topic 1 | Topic 2  | Topic 3 | Topic 4   | Topic 5   |
+| :------ | :------- | :------ | :-------- | :-------- |
+| nation  | us       | nation  | peopl     | state     |
+| govern  | nation   | govern  | govern    | govern    |
+| can     | world    | must    | upon      | power     |
+| public  | peopl    | can     | nation    | countri   |
+| us      | america  | peopl   | law       | constitut |
+| state   | new      | upon    | state     | may       |
+| countri | can      | world   | shall     | great     |
+| may     | must     | law     | great     | peopl     |
+| everi   | american | peac    | public    | nation    |
+| freedom | time     | countri | constitut | upon      |
