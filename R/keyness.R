@@ -39,7 +39,13 @@ ttt_keyness <- function (x, word = "school", window = 10,
                   "please submit a corpus or tokens object")
     }
 
-    word_dfm <- quanteda::tokens_keep (x, quanteda::phrase (word), window = window) %>%
+    keyness_core (x, word, window)
+}
+
+keyness_core <- function (x, word, window)
+{
+    word_dfm <- quanteda::tokens_keep (x, quanteda::phrase (word),
+                                       window = window) %>%
         quanteda::dfm ()
     not_word_dfm <- quanteda::tokens_remove (x, quanteda::phrase (word),
                                              window = window) %>%
