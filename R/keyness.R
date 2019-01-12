@@ -33,9 +33,71 @@ ttt_keyness <- function (x, word = "school", window = 10,
     x <- convert_to_tokens (x)
 
     x <- keyness_core (x, word, window)
+    feature <- NULL # remove no visible binding note
     if (remove_keyword)
         x <- dplyr::filter (x, !grepl (word, feature))
     return (x)
+}
+
+#' ttt_keyness2
+#'
+#' Extract association with a specified word from the results of
+#' \link{ttt_keyness}. The first function calculates associations with a
+#' specified word; this function reduces those only to associations with a
+#' second specified word.
+#'
+#' @param x Either a single \pkg{quanteda} `keyness` object, as for example
+#' returned from \link{ttt_keyness}, or a list of such objects, as for example
+#' return from \link{ttt_keyness_annual}.
+#' @param word Secondary word for which the association with the keyword used in
+#' \link{ttt_keyness} is to be extracted.
+#' @return A \pkg{quanteda} `keyness` object filtered to the specified
+#' associations only (see Note).
+#'
+#' @note For single `keyness` objects, this function is merely a very thin
+#' wrapped around \pkg{dplyr} `filter`. For annual lists of `keyness` objects
+#' returned from \link{ttt_keyness_annual}, each year is filtered to the
+#' specified associations only, and the list converted to a single `keyness`
+#' `data.frame` with an additional `year` column.
+#'
+#' @export
+#' @examples
+#' # prepare a corpus of quanteda tokens:
+#' dat <- quanteda::data_corpus_inaugural
+#' tok <- quanteda::tokens (dat, remove_numbers = TRUE, remove_punct = TRUE,
+#'                remove_separators = TRUE)
+#' tok <- quanteda::tokens_remove(tok, quanteda::stopwords("english"))
+#' # then use that to extract keyword associations:
+#' x <- ttt_keyness (tok, "politic*")
+#' # and filter to specified association only
+#' x <- ttt_keyness2 (x, "petty")
+ttt_keyness2 <- function (x, word)
+{
+    if (methods::is (x, "list"))
+    {
+        is_keyness <- vapply (x, function (i)
+                              methods::is (i, "keyness"),
+                              logical (1))
+        if (!all (is_keyness))
+            stop ("x must be list of quanteda keyness objects ",
+                  "returned from ttt_keyness_annual")
+    } else if (!methods::is (x, "keyness"))
+        stop ("x must be an quanteda keyness object ",
+              "returned from ttt_keyness or ttt_keyness_annual.")
+
+    if (methods::is (x, "keyness"))
+        res <- dplyr::filter (x, grepl (word, x$feature))
+    else
+    {
+        res <- lapply (seq_along (x), function (i) {
+                     ret <- dplyr::filter (x [[i]],
+                                           grepl (word, x [[i]]$feature))
+                     if (nrow (ret) > 0)
+                         ret$year <- names (x) [i]
+                     return (ret)   })
+        res <- do.call (rbind, res)
+    }
+    return (res)
 }
 
 #' ttt_keyness_annual
@@ -77,6 +139,7 @@ ttt_keyness_annual <- function (x, word = "school", window = 10,
     {
         xy <- quanteda::tokens_subset (x, years == y)
         temp <- keyness_core (xy, word, window)
+        feature <- NULL # remove no visible binding note
         if (remove_keyword)
             temp <- dplyr::filter (temp, !grepl (word, feature))
         if (!is.null (temp))
