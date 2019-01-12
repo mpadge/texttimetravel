@@ -42,3 +42,9 @@ notifications:
 # Prevents Travis timeout for building libpoppler
 before_install:
     - (while true; do echo 'Ping? Pong!'; sleep 500; done) &
+
+r_github_packages:
+      - jimhester/covr
+
+after_success:
+    - Rscript -e "covr::codecov()"
