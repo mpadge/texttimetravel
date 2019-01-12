@@ -11,7 +11,10 @@ plot.keyness_annual <- function (x, ...)
     {
         dplyr::select (x, c (feature, chi2, year)) %>%
             dplyr::mutate (year = as.numeric (year)) %>%
-            ggplot2::ggplot (ggplot2::aes (year, chi2, colour = feature)) +
-            ggplot2::geom_line ()
+            ggplot2::ggplot (ggplot2::aes (x = year,
+                                           y = chi2,
+                                           colour = feature)) +
+            #ggplot2::geom_line () +
+            ggplot2::geom_smooth (method = loess)
     }
 }
