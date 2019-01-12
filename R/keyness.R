@@ -139,11 +139,11 @@ ttt_keyness_annual <- function (x, word = "school", window = 10,
     {
         xy <- quanteda::tokens_subset (x, years == y)
         temp <- keyness_core (xy, word, window)
-        feature <- NULL # remove no visible binding note
-        if (remove_keyword)
-            temp <- dplyr::filter (temp, !grepl (word, feature))
         if (!is.null (temp))
         {
+            feature <- NULL # remove no visible binding note
+            if (remove_keyword)
+                temp <- dplyr::filter (temp, !grepl (word, feature))
             res [[length (res) + 1]] <- temp
             names (res) [length (res)] <- y
         }

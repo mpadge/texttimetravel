@@ -15,7 +15,8 @@ Imports:
     topicmodels
 Suggests:
     knitr,
-    roxygen2
+    roxygen2,
+    testthat
 SystemRequirements: Poppler C++ API: libpoppler-cpp-dev (deb) or poppler-cpp-devel (rpm).
 License: GPL-3
 URL: https://github.com/mpadge/texttimetravel
