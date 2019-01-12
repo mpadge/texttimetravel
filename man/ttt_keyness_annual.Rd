@@ -44,6 +44,6 @@ tok <- quanteda::tokens_remove(tok, quanteda::stopwords("english"))
 # then use that to extract keyword associations:
 \dontrun{
 x <- ttt_keyness_annual (tok, "school")
-head (x, n = 20)
+x <- ttt_keyness_annual (tok, "school", remove_keyword = TRUE)
 }
 }

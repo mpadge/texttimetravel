@@ -37,5 +37,7 @@ tok <- quanteda::tokens_remove(tok, quanteda::stopwords("english"))
 x <- ttt_keyness (tok, "school")
 head (x, n = 20)
 x <- ttt_keyness (tok, "politic*")
-head (x, n = 20)
+head (x, n = 20) # first 3 words are political, politics, and parties
+x <- ttt_keyness (tok, "politic*", remove_keyword = TRUE)
+head (x, n = 20) # first 3 words are parties, petty, and voice
 }

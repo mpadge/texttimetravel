@@ -24,13 +24,18 @@
 #' x <- ttt_keyness (tok, "school")
 #' head (x, n = 20)
 #' x <- ttt_keyness (tok, "politic*")
-#' head (x, n = 20)
+#' head (x, n = 20) # first 3 words are political, politics, and parties
+#' x <- ttt_keyness (tok, "politic*", remove_keyword = TRUE)
+#' head (x, n = 20) # first 3 words are parties, petty, and voice
 ttt_keyness <- function (x, word = "school", window = 10,
                          remove_keyword = FALSE)
 {
     x <- convert_to_tokens (x)
 
-    keyness_core (x, word, window)
+    x <- keyness_core (x, word, window)
+    if (remove_keyword)
+        x <- dplyr::filter (x, !grepl (word, feature))
+    return (x)
 }
 
 #' ttt_keyness_annual
@@ -58,7 +63,7 @@ ttt_keyness <- function (x, word = "school", window = 10,
 #' # then use that to extract keyword associations:
 #' \dontrun{
 #' x <- ttt_keyness_annual (tok, "school")
-#' head (x, n = 20)
+#' x <- ttt_keyness_annual (tok, "school", remove_keyword = TRUE)
 #' }
 ttt_keyness_annual <- function (x, word = "school", window = 10,
                          remove_keyword = FALSE)
@@ -72,6 +77,8 @@ ttt_keyness_annual <- function (x, word = "school", window = 10,
     {
         xy <- quanteda::tokens_subset (x, years == y)
         temp <- keyness_core (xy, word, window)
+        if (remove_keyword)
+            temp <- dplyr::filter (temp, !grepl (word, feature))
         if (!is.null (temp))
         {
             res [[length (res) + 1]] <- temp
