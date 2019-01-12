@@ -30,6 +30,61 @@
 ttt_keyness <- function (x, word = "school", window = 10,
                          remove_keyword = FALSE, annual = FALSE)
 {
+    x <- convert_to_tokens (x)
+
+    keyness_core (x, word, window)
+}
+
+#' ttt_keyness_annual
+#'
+#' Keyness metrics for associations with specified key words, evaluated on an
+#' annual basis; see
+#' \url{https://en.wikipedia.org/wiki/Keyword_(linguistics)}
+#'
+#' @return A list of \pkg{quanteda} `keyness` objects listing words (`features`)
+#' and associated keyness statistics; one list item per year (where able to be
+#' calcualted).
+#' @inheritParams ttt_keyness
+#'
+#' @note Only those years for which `x` contains the nominated `word` will
+#' return entries, and thus the return length of this function may be less than
+#' the number of years in the corpus.
+#'
+#' @export
+#' @examples
+#' # prepare a corpus of quanteda tokens:
+#' dat <- quanteda::data_corpus_inaugural
+#' tok <- quanteda::tokens (dat, remove_numbers = TRUE, remove_punct = TRUE,
+#'                remove_separators = TRUE)
+#' tok <- quanteda::tokens_remove(tok, quanteda::stopwords("english"))
+#' # then use that to extract keyword associations:
+#' \dontrun{
+#' x <- ttt_keyness_annual (tok, "school")
+#' head (x, n = 20)
+#' }
+ttt_keyness_annual <- function (x, word = "school", window = 10,
+                         remove_keyword = FALSE, annual = FALSE)
+{
+    x <- convert_to_tokens (x)
+
+    yearvar <- grep ("year", names (quanteda::docvars (x)), ignore.case = TRUE)
+    years <- quanteda::docvars (x) [[yearvar]]
+    res <- list ()
+    for (y in years)
+    {
+        xy <- quanteda::tokens_subset (x, years == y)
+        temp <- keyness_core (xy, word, window)
+        if (!is.null (temp))
+        {
+            res [[length (res) + 1]] <- temp
+            names (res) [length (res)] <- y
+        }
+    }
+    return (res)
+}
+
+convert_to_tokens <- function (x)
+{
     if (!methods::is (x, "tokens"))
     {
         if (methods::is (x, "corpus"))
@@ -40,26 +95,7 @@ ttt_keyness <- function (x, word = "school", window = 10,
             stop ("unknown class of object; ",
                   "please submit a corpus or tokens object")
     }
-
-    res <- NULL
-    if (!annual)
-        res <- keyness_core (x, word, window)
-    else {
-        yearvar <- grep ("year", names (docvars (x)), ignore.case = TRUE)
-        years <- docvars (x) [[yearvar]]
-        res <- list ()
-        for (y in years)
-        {
-            xy <- quanteda::tokens_subset (x, years == y)
-            temp <- keyness_core (xy, word, window)
-            if (!is.null (temp))
-            {
-                res [[length (res) + 1]] <- temp
-                names (res) [length (res)] <- y
-            }
-        }
-    }
-    return (res)
+    return (x)
 }
 
 keyness_core <- function (x, word, window)
@@ -77,7 +113,7 @@ keyness_core <- function (x, word, window)
         # wordaround before current PR to quanteda is accepted:
         z <- rbind (word_dfm, not_word_dfm)
         if (quanteda::ndoc (z) == 2)
-            docnames (z) <- c ("test", "reference")
+            quanteda::docnames (z) <- c ("test", "reference")
         res <- quanteda::textstat_keyness (z,
                                            seq_len (quanteda::ndoc (word_dfm)))
         res$n_target_rel <- res$n_target / sum (word_dfm)
