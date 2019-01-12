@@ -113,10 +113,12 @@ ttt_keyness2 <- function (x, word)
 #' annual basis; see
 #' \url{https://en.wikipedia.org/wiki/Keyword_(linguistics)}
 #'
+#' @inheritParams ttt_keyness
+#' @param quiet If `FALSE`, displays a progress bar which might be helpful
+#' because this function may take a long time to run.
 #' @return A list of \pkg{quanteda} `keyness` objects listing words (`features`)
 #' and associated keyness statistics; one list item per year (where able to be
 #' calcualted).
-#' @inheritParams ttt_keyness
 #'
 #' @note Only those years for which `x` contains the nominated `word` will
 #' return entries, and thus the return length of this function may be less than
@@ -135,16 +137,18 @@ ttt_keyness2 <- function (x, word)
 #' x <- ttt_keyness_annual (tok, "school", remove_keyword = TRUE)
 #' }
 ttt_keyness_annual <- function (x, word = "school", window = 10,
-                         remove_keyword = FALSE)
+                         remove_keyword = FALSE, quiet = FALSE)
 {
     x <- convert_to_tokens (x)
 
     yearvar <- grep ("year", names (quanteda::docvars (x)), ignore.case = TRUE)
     years <- quanteda::docvars (x) [[yearvar]]
     res <- list ()
-    for (y in years)
+    if (!quiet)
+        pb <- utils::txtProgressBar (style = 3)
+    for (i in seq (years))
     {
-        xy <- quanteda::tokens_subset (x, years == y)
+        xy <- quanteda::tokens_subset (x, years == years [i])
         temp <- keyness_core (xy, word, window)
         if (!is.null (temp))
         {
@@ -156,9 +160,12 @@ ttt_keyness_annual <- function (x, word = "school", window = 10,
                 class (temp) <- cl
             }
             res [[length (res) + 1]] <- temp
-            names (res) [length (res)] <- y
+            names (res) [length (res)] <- years [i]
         }
+        utils::setTxtProgressBar (pb, i / length (years))
     }
+    close (pb)
+
     return (res)
 }
 

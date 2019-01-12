@@ -5,7 +5,7 @@
 \title{ttt_keyness_annual}
 \usage{
 ttt_keyness_annual(x, word = "school", window = 10,
-  remove_keyword = FALSE)
+  remove_keyword = FALSE, quiet = FALSE)
 }
 \arguments{
 \item{x}{A \pkg{quanteda} `tokens` list, obtained by `tokens(corpus)`.}
@@ -19,6 +19,9 @@ measures of assocation.}
 
 \item{remove_keyword}{If `TRUE`, remove the specified keyword from results,
 leaving only associations with that word not the word itself.}
+
+\item{quiet}{If `FALSE`, displays a progress bar which might be helpful
+because this function may take a long time to run.}
 }
 \value{
 A list of \pkg{quanteda} `keyness` objects listing words (`features`)
