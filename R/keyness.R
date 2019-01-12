@@ -11,8 +11,6 @@
 #' measures of assocation.
 #' @param remove_keyword If `TRUE`, remove the specified keyword from results,
 #' leaving only associations with that word not the word itself.
-#' @param annual Calculate `keyness` statistics on annual bases, rather than for
-#' entire corpus at once.
 #' @return A \pkg{quanteda} `keyness` object listing words (`features`) and
 #' associated keyness statistics.
 #' @export
@@ -28,7 +26,7 @@
 #' x <- ttt_keyness (tok, "politic*")
 #' head (x, n = 20)
 ttt_keyness <- function (x, word = "school", window = 10,
-                         remove_keyword = FALSE, annual = FALSE)
+                         remove_keyword = FALSE)
 {
     x <- convert_to_tokens (x)
 
@@ -63,7 +61,7 @@ ttt_keyness <- function (x, word = "school", window = 10,
 #' head (x, n = 20)
 #' }
 ttt_keyness_annual <- function (x, word = "school", window = 10,
-                         remove_keyword = FALSE, annual = FALSE)
+                         remove_keyword = FALSE)
 {
     x <- convert_to_tokens (x)
 

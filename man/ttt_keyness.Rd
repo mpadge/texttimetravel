@@ -4,8 +4,7 @@
 \alias{ttt_keyness}
 \title{ttt_keyness}
 \usage{
-ttt_keyness(x, word = "school", window = 10, remove_keyword = FALSE,
-  annual = FALSE)
+ttt_keyness(x, word = "school", window = 10, remove_keyword = FALSE)
 }
 \arguments{
 \item{x}{A \pkg{quanteda} `tokens` list, obtained by `tokens(corpus)`.}
@@ -19,9 +18,6 @@ measures of assocation.}
 
 \item{remove_keyword}{If `TRUE`, remove the specified keyword from results,
 leaving only associations with that word not the word itself.}
-
-\item{annual}{Calculate `keyness` statistics on annual bases, rather than for
-entire corpus at once.}
 }
 \value{
 A \pkg{quanteda} `keyness` object listing words (`features`) and
