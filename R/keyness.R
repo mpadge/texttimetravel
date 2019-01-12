@@ -34,8 +34,12 @@ ttt_keyness <- function (x, word = "school", window = 10,
 
     x <- keyness_core (x, word, window)
     feature <- NULL # remove no visible binding note
+    cl <- class (x)
     if (remove_keyword)
+    {
         x <- dplyr::filter (x, !grepl (word, feature))
+        class (x) <- cl
+    }
     return (x)
 }
 
@@ -86,8 +90,10 @@ ttt_keyness2 <- function (x, word)
               "returned from ttt_keyness or ttt_keyness_annual.")
 
     if (methods::is (x, "keyness"))
+    {
         res <- dplyr::filter (x, grepl (word, x$feature))
-    else
+        class (res) <- class (x)
+    } else
     {
         res <- lapply (seq_along (x), function (i) {
                      ret <- dplyr::filter (x [[i]],
@@ -96,6 +102,7 @@ ttt_keyness2 <- function (x, word)
                          ret$year <- names (x) [i]
                      return (ret)   })
         res <- do.call (rbind, res)
+        class (res) <- class (x [[1]])
     }
     return (res)
 }
@@ -143,7 +150,11 @@ ttt_keyness_annual <- function (x, word = "school", window = 10,
         {
             feature <- NULL # remove no visible binding note
             if (remove_keyword)
+            {
+                cl <- class (temp)
                 temp <- dplyr::filter (temp, !grepl (word, feature))
+                class (temp) <- cl
+            }
             res [[length (res) + 1]] <- temp
             names (res) [length (res)] <- y
         }
