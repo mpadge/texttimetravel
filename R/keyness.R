@@ -94,7 +94,7 @@ ttt_keyness2 <- function (x, word)
                          ret$year <- names (x) [i]
                      return (ret)   })
         res <- do.call (rbind, res)
-        class (res) <- class (x [[1]])
+        class (res) <- c (class (x [[1]]), "keyness_annual")
     }
     return (res)
 }
