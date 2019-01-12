@@ -77,15 +77,7 @@ ttt_keyness <- function (x, word = "school", window = 10,
 #' x <- ttt_keyness2 (x, "petty")
 ttt_keyness2 <- function (x, word)
 {
-    if (methods::is (x, "list"))
-    {
-        is_keyness <- vapply (x, function (i)
-                              methods::is (i, "keyness"),
-                              logical (1))
-        if (!all (is_keyness))
-            stop ("x must be list of quanteda keyness objects ",
-                  "returned from ttt_keyness_annual")
-    } else if (!methods::is (x, "keyness"))
+    if (!(methods::is (x, "keyness") | methods::is (x, "keyness_annual")))
         stop ("x must be an quanteda keyness object ",
               "returned from ttt_keyness or ttt_keyness_annual.")
 
@@ -165,6 +157,8 @@ ttt_keyness_annual <- function (x, word = "school", window = 10,
         utils::setTxtProgressBar (pb, i / length (years))
     }
     close (pb)
+
+    class (res) <- c (class (res), "keyness_annual")
 
     return (res)
 }
