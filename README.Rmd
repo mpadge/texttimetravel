@@ -89,8 +89,6 @@ topicmodels::get_terms(x, 10) %>% knitr::kable()
 x <- ttt_fit_topics (tok, years = 1789:1900, ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()
 ```
-Note the token "everi" that appears in the second topic is a mistaken
-tokenization of the words "perservering", "feverish", and "severity".
 ```{r topics3}
 x <- ttt_fit_topics (tok, topic = "nation", ntopics = 5)
 topicmodels::get_terms(x, 10) %>% knitr::kable()

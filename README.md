@@ -109,50 +109,47 @@ and extends functionality via two additional parameters:
     x <- ttt_fit_topics (tok, ntopics = 5)
     topicmodels::get_terms(x, 10) %>% knitr::kable()
 
-| Topic 1   | Topic 2 | Topic 3   | Topic 4 | Topic 5  |
-|:----------|:--------|:----------|:--------|:---------|
-| govern    | peopl   | nation    | govern  | us       |
-| state     | upon    | upon      | nation  | nation   |
-| power     | shall   | peopl     | must    | world    |
-| countri   | govern  | govern    | can     | america  |
-| constitut | law     | can       | upon    | peopl    |
-| peopl     | nation  | shall     | peopl   | new      |
-| may       | public  | us        | law     | can      |
-| nation    | state   | great     | world   | must     |
-| great     | free    | constitut | countri | american |
-| public    | citizen | law       | may     | time     |
+| Topic 1 | Topic 2 | Topic 3   | Topic 4 | Topic 5  |
+|:--------|:--------|:----------|:--------|:---------|
+| peopl   | nation  | govern    | govern  | us       |
+| nation  | world   | state     | state   | american |
+| upon    | us      | constitut | nation  | nation   |
+| govern  | can     | peopl     | countri | peopl    |
+| can     | peopl   | power     | peopl   | america  |
+| must    | america | can       | power   | must     |
+| law     | peac    | may       | great   | new      |
+| great   | freedom | upon      | public  | world    |
+| peac    | new     | law       | may     | govern   |
+| shall   | must    | one       | everi   | time     |
 
     x <- ttt_fit_topics (tok, years = 1789:1900, ntopics = 5)
     topicmodels::get_terms(x, 10) %>% knitr::kable()
 
-| Topic 1   | Topic 2   | Topic 3 | Topic 4 | Topic 5   |
-|:----------|:----------|:--------|:--------|:----------|
-| govern    | power     | state   | govern  | peopl     |
-| state     | govern    | govern  | public  | nation    |
-| power     | peopl     | great   | peopl   | state     |
-| union     | state     | peopl   | nation  | govern    |
-| constitut | constitut | countri | everi   | constitut |
-| upon      | may       | nation  | citizen | law       |
-| right     | upon      | may     | war     | upon      |
-| nation    | countri   | unit    | shall   | can       |
-| duti      | principl  | power   | us      | shall     |
-| can       | one       | shall   | countri | may       |
-
-Note the token “everi” that appears in the second topic is a mistaken
-tokenization of the words “perservering”, “feverish”, and “severity”.
+| Topic 1 | Topic 2   | Topic 3 | Topic 4 | Topic 5   |
+|:--------|:----------|:--------|:--------|:----------|
+| govern  | upon      | state   | peopl   | constitut |
+| state   | state     | govern  | govern  | state     |
+| power   | nation    | nation  | nation  | power     |
+| union   | peopl     | countri | shall   | govern    |
+| great   | law       | may     | public  | peopl     |
+| nation  | govern    | peopl   | can     | can       |
+| countri | constitut | us      | may     | may       |
+| right   | great     | public  | everi   | upon      |
+| peopl   | countri   | everi   | upon    | one       |
+| duti    | public    | war     | countri | union     |
 
     x <- ttt_fit_topics (tok, topic = "nation", ntopics = 5)
     topicmodels::get_terms(x, 10) %>% knitr::kable()
 
-| Topic 1 | Topic 2   | Topic 3  | Topic 4 | Topic 5 |
-|:--------|:----------|:---------|:--------|:--------|
-| peopl   | govern    | us       | state   | nation  |
-| nation  | power     | nation   | govern  | world   |
-| govern  | peopl     | new      | great   | us      |
-| upon    | nation    | america  | nation  | peopl   |
-| must    | state     | world    | peopl   | freedom |
-| can     | constitut | american | countri | can     |
-| law     | may       | peopl    | may     | peac    |
-| public  | countri   | must     | law     | great   |
-| shall   | upon      | can      | power   | govern  |
-| world   | can       | let      | unit    | must    |
+| Topic 1 | Topic 2 | Topic 3   | Topic 4 | Topic 5  |
+|:--------|:--------|:----------|:--------|:---------|
+| govern  | nation  | govern    | nation  | us       |
+| state   | peopl   | peopl     | peopl   | nation   |
+| nation  | govern  | upon      | upon    | world    |
+| power   | us      | state     | can     | america  |
+| may     | world   | power     | peac    | peopl    |
+| countri | can     | constitut | world   | new      |
+| peopl   | must    | law       | must    | can      |
+| union   | war     | may       | govern  | american |
+| public  | shall   | countri   | law     | must     |
+| great   | men     | great     | countri | time     |
