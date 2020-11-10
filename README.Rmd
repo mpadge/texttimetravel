@@ -4,9 +4,6 @@
 
 # texttimetravel
 
-Developers: Mark Padgham ([\@mpadge](https://github.com/mpadge)) and Felicity
-Jensz ([\@fjensz](https://github.com/fjensz)).
-
 Tools for analysing temporally structured text collections, including tools for
 reading large sets of texts in (via
 [`pdftools`](https://github.com/ropensci/pdftools)), and for time series
@@ -19,7 +16,7 @@ analysis of qualitative statistics such as word associations and topic models
 System requirements (for linux):
 
 - libpoppler-cpp-dev
-- libgsl0-dev 
+- libgsl-dev 
 
 For other systems, see respective documentation for 
 [`pdftools`](https://github.com/ropensci/pdftools)) and
