@@ -6,6 +6,8 @@
 #' @export
 plot.keyness_annual <- function (x, ...)
 {
+    loess <- NULL # suppress no visible binding message
+
     res <- feature <- chi2 <- year <- NULL # supress no visible binding notes
     if (is.data.frame (x))
     {
