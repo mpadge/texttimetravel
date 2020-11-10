@@ -7,7 +7,7 @@ dat <- quanteda::data_corpus_inaugural
 tok <- quanteda::tokens (dat, remove_numbers = TRUE, remove_punct = TRUE,
                remove_separators = TRUE)
 tok <- quanteda::tokens_remove(tok, quanteda::stopwords("english"))
-tok <- tok [quanteda::docvars (tok)$Year < 1850, ]
+tok <- tok [quanteda::docvars (tok)$Year < 1850]
 
 test_that("keyness", {
               x <- ttt_keyness (tok, "politic*")
